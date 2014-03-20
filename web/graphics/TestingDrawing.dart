@@ -57,6 +57,8 @@ void main() {
    stats.end();
    stats.begin();    
   });
+  
+  document.querySelector('#mode1').click();
 }
 
 
