@@ -315,7 +315,8 @@ H.VM(new W.Ov(0,x.uv,x.Ph,W.VF(new X.QA()),x.Sg),[H.Kp(x,0)]).Zz()
 w=new M.J9(new P.P1(1000000,null,null),0,1000,0,0,1000,0,0,0,null,null,null,null,null,null,null)
 w.jm()
 document.querySelector("#fpsMeter").appendChild(w.Tk)
-$.DA.Yf(0,C.U4.fG).yI(new X.Cv(w))},"call$0","eE",0,0,0],
+$.DA.Yf(0,C.U4.fG).yI(new X.Cv(w))
+J.Up(document.querySelector("#mode1"))},"call$0","eE",0,0,0],
 WX:function(a,b){var z,y
 z=H.VM([],[Z.pT])
 y=$.LS
@@ -384,7 +385,7 @@ w.iC=y
 x.q7.push(w)
 x.zb=!0
 x=$.lG.z2
-w=Z.jK(4293982463)
+w=Z.jK(4285098345)
 y=new Z.lY(null,null,null,null)
 y.L7=5
 y.kH="round"
@@ -412,7 +413,7 @@ w.iC=y
 x.q7.push(w)
 x.zb=!0
 x=$.lG.z2
-w=Z.jK(4293982463)
+w=Z.jK(4294934352)
 y=new Z.lY(null,null,null,null)
 y.L7=5
 y.kH="round"
@@ -3756,6 +3757,7 @@ if(typeof w!=="number")return w.F()
 if(w>=0);else w=-w*0
 return H.VM(new P.tn(z,y,x,w),[null])},
 bu:function(a){return a.localName},
+tF:function(a){return a.click()},
 gVl:function(a){return C.T1.f0(a)},
 gVY:function(a){return C.Wh.f0(a)},
 $iscv:true,
@@ -4277,6 +4279,7 @@ d5:{
 gDD:function(a){if(a._cssClassSet==null)a._cssClassSet=new P.O7(a)
 return a._cssClassSet},
 gwd:function(a){return H.VM(new P.D7(a,new W.e7(a)),[W.cv])},
+tF:function(a){throw H.b(P.f("Cannot invoke click SVG."))},
 gVl:function(a){return C.T1.f0(a)},
 gVY:function(a){return C.Wh.f0(a)},
 $isD0:true,
@@ -4313,7 +4316,7 @@ static:{N3:function(){return new H.ku((Math.random()*0x100000000>>>0)+(Math.rand
 VC:function(a,b){a=536870911&a+b
 a=536870911&a+((524287&a)<<10>>>0)
 return a^a>>>6},
-Up:function(a){a=536870911&a+((67108863&a)<<3>>>0)
+xk:function(a){a=536870911&a+((67108863&a)<<3>>>0)
 a^=a>>>11
 return 536870911&a+((16383&a)<<15>>>0)},
 J:function(a,b){if(a>b)return b
@@ -4346,7 +4349,7 @@ return z},
 giO:function(a){var z,y
 z=J.v1(this.x)
 y=J.v1(this.y)
-return P.Up(P.VC(P.VC(0,z),y))},
+return P.xk(P.VC(P.VC(0,z),y))},
 g:function(a,b){var z,y,x
 z=this.x
 y=b.gx(b)
@@ -4390,7 +4393,7 @@ if(typeof w!=="number")return w.g()
 w=w+this.R&0x1FFFFFFF
 if(typeof y!=="number")return y.g()
 y=y+this.fg&0x1FFFFFFF
-return P.Up(P.VC(P.VC(P.VC(P.VC(0,z),x),w),y))}},
+return P.xk(P.VC(P.VC(P.VC(P.VC(0,z),x),w),y))}},
 tn:{
 "^":"IN;Bb>,G6>,R>,fg>",
 $istn:true,
@@ -6232,6 +6235,7 @@ J.Pw=function(a,b){return J.RE(a).sxr(a,b)}
 J.SK=function(a,b){return J.RE(a).sWi(a,b)}
 J.UQ=function(a,b){if(a.constructor==Array||typeof a=="string"||H.wV(a,a[init.dispatchPropertyName]))if(b>>>0===b&&b<a.length)return a[b]
 return J.U6(a).t(a,b)}
+J.Up=function(a){return J.RE(a).tF(a)}
 J.V1=function(a,b){return J.w1(a).Rz(a,b)}
 J.Vf=function(a,b){return J.RE(a).RT(a,b)}
 J.Vg=function(a){return J.RE(a).gVl(a)}
@@ -6527,7 +6531,7 @@ I.$lazy($,"undefinedLiteralPropertyPattern","A7","ko",function(){return H.cM(fun
 I.$lazy($,"_toStringList","Ml","RM",function(){return[]})
 I.$lazy($,"_toStringVisiting","xg","xb",function(){return P.yv(null)})
 I.$lazy($,"_toStringList","yu","tw",function(){return[]})
-I.$lazy($,"autoHiDpi","E1","rk",function(){return $.lM()})
+I.$lazy($,"autoHiDpi","E1","rk",function(){return $.y8()})
 I.$lazy($,"_enterFrameSubscriptions","Jp","Kb",function(){return[]})
 I.$lazy($,"_exitFrameSubscriptions","Af","Ra",function(){return[]})
 I.$lazy($,"_renderSubscriptions","Ip","lT",function(){return[]})
@@ -6549,7 +6553,7 @@ z.toString}return z})
 I.$lazy($,"_devicePixelRatio","b9","DE",function(){return window.devicePixelRatio==null?1:window.devicePixelRatio})
 I.$lazy($,"_isMobile","La","Dv",function(){return new Z.wJ().call$0()})
 I.$lazy($,"_screenMax","zv","fx",function(){return window.screen==null?1024:P.y(window.screen.width,window.screen.height)})
-I.$lazy($,"_autoHiDpi","xk","lM",function(){var z=$.DE()
+I.$lazy($,"_autoHiDpi","H2","y8",function(){var z=$.DE()
 if(typeof z!=="number")return z.D()
 if(z>1)z=$.Dv()!==!0||$.fx()>480
 else z=!1
