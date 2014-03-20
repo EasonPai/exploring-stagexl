@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Testing Drawing</title>
+<link href="../common/img/favicon.ico" rel="shortcut icon"
+  type="image/x-icon">
+<link href="../common/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body {
+  background-color: LightGray;
+}
+
+#stage {
+  background-color: White;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #900000;
+}
+
+#container {
+  position: absolute;
+  top: 50%;
+  margin-top: -275px;
+  left: 0;
+  width: 100%;
+}
+
+#content {
+  width: 900px;
+  height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="content">
+      <span class="pull-left">Mode:  </span>
+      <div class="btn-group">
+        <button id="mode1" type="button" class="btn btn-info btn-sm">static cache area</button>
+        <button id="mode2" type="button" class="btn btn-info btn-sm">dynamic cache area</button>
+        <button id="clean" type="button" class="btn btn-warning btn-sm">clean canvas</button>
+      </div>
+       <div id="fpsMeter" class="pull-right"></div>
+      <canvas id="stage" width="900" height="500"></canvas>
+    </div>
+  </div>
+
+  <script type="application/dart" src="TestingDrawing.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>

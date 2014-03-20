@@ -1,0 +1,6 @@
+name: exploring_stagexl
+description: A sample web application
+dependencies:
+  browser: any
+  stagexl: any
+  stats: any
