@@ -84,7 +84,7 @@ startStatic(int startx, int starty) {
 
 drawStatic(int startx, int starty, int endx, int endy) {
   drawBody.graphics.lineTo(endx, endy);
-  drawBody.graphics.strokeColor(Color.AliceBlue , 5);
+  drawBody.graphics.strokeColor(Color.DimGray , 5);
   drawBody.refreshCache();
 }
 
@@ -127,7 +127,7 @@ drawDynamic(int startx, int starty, int endx, int endy) {
  }
  
   drawBody.graphics.lineTo(endx, endy);
-  drawBody.graphics.strokeColor(Color.AliceBlue , 5);
+  drawBody.graphics.strokeColor(Color.Coral , 5);
   drawBody.applyCache(minx - 5, miny - 5, maxx - minx + 10, maxy - miny + 10, debugBorder: true);
   drawBody.refreshCache();
 }
