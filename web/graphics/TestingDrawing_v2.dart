@@ -80,14 +80,12 @@ startStatic(int startx, int starty) {
 drawStatic(int toX, int toY) {
   // drawBody.graphics.moveTo(endx, endy);
   pixels.add(new Point(toX, toY));
-  print("pixels > ${pixels.length}");
+  print("pixel length > ${pixels.length}");
   drawBody.graphics.clear();
   for(int i=0;i<pixels.length;i++){
    if(i>1){
-//    print("move: ${pixels[i-1].x},  ${pixels[i-1].y}");
     drawBody.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
    }
-//   print("line: ${pixels[i].x},  ${pixels[i].y}");
    drawBody.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
   drawBody.graphics.strokeColor(Color.DimGray , 5);
