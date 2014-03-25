@@ -7,6 +7,7 @@ RenderLoop renderLoop = new RenderLoop();
 
 var background;
 var mouseDownListener;
+BitmapData bitmapData;
 void main() {
 
   // setup canvas & stage
@@ -39,31 +40,38 @@ void main() {
    stats.begin();    
   });
   
-  mouseDownListener = background.onMouseDown.listen((e) {
-      startStatic(e.localX.toInt(), e.localY.toInt());
-  });
+  document.querySelector('#mode2').click();
   
+  // init canvas
+  canvas = new Shape();
+  canvas.addTo(stage);
+  canvas.applyCache(0, 0, 900, 500, debugBorder: true);
+  bitmapData = new BitmapData(900, 500, true, 0); 
+  Bitmap drawingCache = new Bitmap(bitmapData);
+  drawingCache.addTo(stage);
+  
+  // start listener
+  mouseDownListener = background.onMouseDown.listen((e) {
+    startStatic(e.localX.toInt(), e.localY.toInt());
+   });
 }
 
 
 List<Point> pixels = [];
-Shape drawBody;
+Shape canvas;
 var createLineStart = false;
 var touchListener;
 
 // static cache draw
 startStatic(int startx, int starty) {
   pixels = [];
-  
-  drawBody = new Shape();
-  drawBody.addTo(stage);
-  drawBody.applyCache(0, 0, 900, 500, debugBorder: true);
   pixels.add(new Point(startx, starty));
+  
   touchListener = background.onMouseMove.listen((e) {
-      drawStatic( e.localX.toInt(), e.localY.toInt());
+    drawStatic( e.localX.toInt(), e.localY.toInt());
   });
   background.onMouseUp.listen((e) {
-        endDraw();
+    endDraw();
   });
 }
 
@@ -71,31 +79,25 @@ drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
   print("pixel length > ${pixels.length}");
   
+  // draw to bitmapdata
   if(pixels.length>1000){
-   
+   bitmapData.draw(canvas);
+   endDraw();
+   startStatic(toX, toY);
   }
   
-  drawBody.graphics.clear();
+  canvas.graphics.clear();
   for(int i=0;i<pixels.length;i++){
    if(i>1){
-    drawBody.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
+    canvas.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
    }
-   drawBody.graphics.lineTo(pixels[i].x , pixels[i].y);
+   canvas.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
-  drawBody.graphics.strokeColor(Color.DimGray , 5);
-  drawBody.refreshCache();
+  canvas.graphics.strokeColor(Color.DimGray , 5);
+  canvas.refreshCache();
 }
 
 endDraw() {
   touchListener.cancel();
-}
-
-
-updateButton(Element target) {
-  var btns = document.querySelectorAll('.btn');
-  for (var btn in btns) {
-    btn.classes.remove("active");
-  }
-  target.classes.add("active");
 }
 
