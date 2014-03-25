@@ -11,8 +11,7 @@ BitmapData bitmapData;
 void main() {
 
   // setup canvas & stage
-  var canvas = document.querySelector('#stage');
-  stage = new Stage(canvas, width: 900, height: 500, webGL: true);
+  stage = new Stage(document.querySelector('#stage'), width: 900, height: 500, webGL: true);
   stage.scaleMode = StageScaleMode.SHOW_ALL;
   stage.align = StageAlign.NONE;
   renderLoop.addStage(stage);
@@ -40,8 +39,6 @@ void main() {
    stats.begin();    
   });
   
-  document.querySelector('#mode2').click();
-  
   // init canvas
   canvas = new Shape();
   canvas.addTo(stage);
@@ -61,7 +58,6 @@ List<Point> pixels = [];
 Shape canvas;
 var createLineStart = false;
 var touchListener;
-
 // static cache draw
 startStatic(int startx, int starty) {
   pixels = [];
@@ -78,7 +74,6 @@ startStatic(int startx, int starty) {
 drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
   print("pixel length > ${pixels.length}");
-  
   // draw to bitmapdata
   if(pixels.length>1000){
    bitmapData.draw(canvas);
