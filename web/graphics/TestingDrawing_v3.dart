@@ -62,7 +62,6 @@ var createLineStart = false;
 var touchListener;
 // static cache draw
 startStatic(int startx, int starty) {
-  pixels = [];
   pixels.add(new Point(startx, starty));
   
   touchListener = background.onMouseMove.listen((e) {
@@ -76,7 +75,8 @@ startStatic(int startx, int starty) {
 drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
   document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
-  // cache pen to canvas
+  
+  // cache vectors to bitmapdata
   if(pixels.length>1000){
    endDraw();
    startStatic(toX, toY);
@@ -95,6 +95,8 @@ drawStatic(int toX, int toY) {
 }
 
 endDraw() {
+ pixels = [];
+ document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
   canvasBitmapData.draw(penCanvas);
   penCanvas.graphics.clear();
   touchListener.cancel();
