@@ -1,7 +1,7 @@
 exploring-stagexl
 =================
 
-Demo:
+Demos:
 
-Testing Drawing
-https://platforms.firebaseapp.com/exploring-stagexl/graphics/TestingDrawing.html
+Graphics API Drawing Test
+https://platforms.firebaseapp.com/exploring-stagexl/graphics/TestingDrawing_v4.html
