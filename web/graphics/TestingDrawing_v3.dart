@@ -7,7 +7,7 @@ RenderLoop renderLoop = new RenderLoop();
 
 var background;
 var mouseDownListener;
-BitmapData bitmapData;
+BitmapData canvasBitmapData;
 void main() {
 
   // setup canvas & stage
@@ -28,7 +28,9 @@ void main() {
 
   // setup buttons
   document.querySelector('#clean').onClick.listen((e) {
-   stage.removeChildren(1, stage.numChildren-1);
+   penCanvas.graphics.clear();
+   canvasBitmapData.clear();
+   penCanvas.refreshCache();
   });
 
   // measure the fps
@@ -40,11 +42,11 @@ void main() {
   });
   
   // init canvas
-  canvas = new Shape();
-  canvas.addTo(stage);
-  canvas.applyCache(0, 0, 900, 500, debugBorder: true);
-  bitmapData = new BitmapData(900, 500, true, 0); 
-  Bitmap drawingCache = new Bitmap(bitmapData);
+  penCanvas = new Shape();
+  penCanvas.addTo(stage);
+  penCanvas.applyCache(0, 0, 900, 500, debugBorder: true);
+  canvasBitmapData = new BitmapData(900, 500, true, 0); 
+  Bitmap drawingCache = new Bitmap(canvasBitmapData);
   drawingCache.addTo(stage);
   
   // start listener
@@ -55,7 +57,7 @@ void main() {
 
 
 List<Point> pixels = [];
-Shape canvas;
+Shape penCanvas;
 var createLineStart = false;
 var touchListener;
 // static cache draw
@@ -73,26 +75,28 @@ startStatic(int startx, int starty) {
 
 drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
-  print("pixel length > ${pixels.length}");
-  // draw to bitmapdata
+  document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
+  // cache pen to canvas
   if(pixels.length>1000){
-   bitmapData.draw(canvas);
    endDraw();
    startStatic(toX, toY);
+   return;
   }
   
-  canvas.graphics.clear();
+  penCanvas.graphics.clear();
   for(int i=0;i<pixels.length;i++){
    if(i>1){
-    canvas.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
+    penCanvas.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
    }
-   canvas.graphics.lineTo(pixels[i].x , pixels[i].y);
+   penCanvas.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
-  canvas.graphics.strokeColor(Color.DimGray , 5);
-  canvas.refreshCache();
+  penCanvas.graphics.strokeColor(Color.DimGray , 5);
+  penCanvas.refreshCache();
 }
 
 endDraw() {
+  canvasBitmapData.draw(penCanvas);
+  penCanvas.graphics.clear();
   touchListener.cancel();
 }
 
