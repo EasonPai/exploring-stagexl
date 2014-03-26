@@ -8,6 +8,11 @@ RenderLoop renderLoop = new RenderLoop();
 var background;
 var mouseDownListener;
 BitmapData canvasBitmapData;
+List<Point> pixels = [];
+Shape penCanvas;
+var createLineStart = false;
+var touchListener;
+int totalPoints = 0;
 void main() {
 
   // setup canvas & stage
@@ -54,11 +59,6 @@ void main() {
    });
 }
 
-
-List<Point> pixels = [];
-Shape penCanvas;
-var createLineStart = false;
-var touchListener;
 // static cache draw
 startStatic(int startx, int starty) {
   pixels.add(new Point(startx, starty));
@@ -73,8 +73,9 @@ startStatic(int startx, int starty) {
 
 drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
+  totalPoints += 1;
   document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
-  
+  document.querySelector('#totalPoints').text = "Total Points: ${totalPoints}";
   // cache vectors to bitmapdata
   if(pixels.length>1000){
    endDraw();
