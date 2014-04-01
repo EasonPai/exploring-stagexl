@@ -13,6 +13,7 @@ Shape penCanvas;
 var createLineStart = false;
 var touchListener;
 int totalPoints = 0;
+int CACHE_THRESHOLD = 1000;
 void main() {
 
   // setup canvas & stage
@@ -71,23 +72,22 @@ startStatic(int startx, int starty) {
   });
 }
 
+
 drawStatic(int toX, int toY) {
   pixels.add(new Point(toX, toY));
   totalPoints += 1;
   document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
   document.querySelector('#totalPoints').text = "Total Points: ${totalPoints}";
   // cache vectors to bitmapdata
-  if(pixels.length>1000){
+  if(pixels.length> CACHE_THRESHOLD ){
    endDraw();
    startStatic(toX, toY);
    return;
   }
   
   penCanvas.graphics.clear();
-  for(int i=0;i<pixels.length;i++){
-   if(i>1){
-    penCanvas.graphics.moveTo(pixels[i-1].x , pixels[i-1].y);
-   }
+  penCanvas.graphics.moveTo(pixels[0].x , pixels[0].y);
+  for(int i=1;i<pixels.length;i++){
    penCanvas.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
   penCanvas.graphics.strokeColor(Color.DimGray , 5);
