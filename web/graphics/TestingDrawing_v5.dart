@@ -12,7 +12,7 @@ BitmapData canvasBitmapData;
 List<Point> pixels = [];
 Shape _canvas;
 var createLineStart = false;
-StreamSubscription touchListener;
+StreamSubscription touchListener,touchEndListener;
 int totalPoints = 0;
 int CACHE_THRESHOLD = 1000;
 void main() {
@@ -47,6 +47,7 @@ void main() {
     Arrow arrow = new Arrow();
     arrow.addTo(stage);
     arrow.pointTo(0, i*3 , 860 , i*3);
+    arrow.endDraw();
    }
   });
   document.querySelector('#pen').onClick.listen((e) {
@@ -82,7 +83,6 @@ void main() {
 }
 
 startArrow(int startx, int starty) {
- // create body
  Arrow arrow = new Arrow();
   arrow.addTo(stage);
 
@@ -90,9 +90,10 @@ startArrow(int startx, int starty) {
     arrow.pointTo(startx, starty, e.localX.toInt(), e.localY.toInt());
   });
   
-  background.onMouseUp.listen((e) {
-    endDraw();
-    arrow.endDraw();
+  touchEndListener = background.onMouseUp.listen((e) {
+   touchListener.cancel();
+   touchEndListener.cancel();
+   arrow.endDraw();
   });
 }
 
@@ -102,7 +103,7 @@ startPen(int startx, int starty) {
   touchListener = background.onMouseMove.listen((e) {
     drawPen( e.localX.toInt(), e.localY.toInt());
   });
-  background.onMouseUp.listen((e) {
+  touchEndListener = background.onMouseUp.listen((e) {
     endDraw();
   });
 }
@@ -133,7 +134,12 @@ endDraw() {
  document.querySelector('#points').text = "Points: ${pixels.length.toString()}";
   canvasBitmapData.draw(_canvas);
   _canvas.graphics.clear();
-  if(touchListener!=null) touchListener.cancel();
+  if(touchListener!=null){
+   touchListener.cancel();
+  }
+  if(touchEndListener!=null){
+   touchEndListener.cancel();
+  }
 }
 
 setButtonStateOn(Element target) {
@@ -147,7 +153,6 @@ setButtonStateOn(Element target) {
 class Arrow extends DisplayObjectContainer{
   Shape lineVector;
   Bitmap head;
-  Bitmap body;
   Arrow(){
     mouseEnabled = false;            
     lineVector = new Shape();
@@ -195,15 +200,13 @@ class Arrow extends DisplayObjectContainer{
   
   void endDraw(){
    
-   if(lineVector.width==0) return;
-   if(lineVector==null) return;
    print('${lineVector.width} , ${lineVector.height}');
-   BitmapData bitmapData = new BitmapData(lineVector.width, lineVector.height, true, 0);
+   BitmapData bitmapData = new BitmapData(800,500, true, 0);
    bitmapData.draw(lineVector);
-   body = new Bitmap(bitmapData);
+   Bitmap body = new Bitmap(bitmapData);
 //   body ..x = startpoint.x ..y = startpoint.y;
    addChild(body);
-//   lineVector.graphics.clear();
+   lineVector.graphics.clear();
    removeChild(lineVector);
    
   }
