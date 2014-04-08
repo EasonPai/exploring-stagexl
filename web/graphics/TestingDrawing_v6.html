@@ -36,12 +36,13 @@ body {
 
   <div id="container">
     <div id="content">
-    <H2>Graphics API Drawing Test  <span class="badge">v5, massive bitmapdatas WITHOUT WebGL</span></H2>
-    <h5  class="text-warning"><span class="badge">Description</span> Once when an arrow is drawn, 
-    vectors will be removed and cached with bitmapdata. 
-    Every arrow has its own bitmapdata so we will have massive amount of bitmapdatas. 
-    Without webGL supports, the performance is bad. Click the <span class="badge">Draw 200 arrows"</span> button to see result.</h5>
-    <h5 class="text-primary"><span class="badge">Conclusion</span> We will enable WebGL to see if its better.</h5>
+    <H2>Graphics API Drawing Test  <span class="badge">v6, massive bitmapdatas with WebGL</span></H2>
+    <h5 class="text-warning"><span class="badge">Description</span> 
+    Using WebGL renderer.
+    </h5>
+    <h5 class="text-primary"><span class="badge">Conclusion</span>
+    The FPS stays at ~23 no matter WebGL is used or not. 
+    </h5>
        <div id="fpsMeter" class="pull-right"></div>
         <button id="arrow" type="button" class="pull-left btn btn-primary btn-sm">Arrow</button>
         <button id="arrow_200" type="button" class="pull-left btn btn-primary btn-sm">Draw 200 Arrows</button>
@@ -53,7 +54,7 @@ body {
     </div>
   </div>
 
-  <script type="application/dart" src="TestingDrawing_v5.dart"></script>
+  <script type="application/dart" src="TestingDrawing_v6.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
 </html>

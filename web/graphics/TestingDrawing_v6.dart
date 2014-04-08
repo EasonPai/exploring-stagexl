@@ -18,7 +18,7 @@ int CACHE_THRESHOLD = 1000;
 void main() {
 
   // setup canvas & stage
-  stage = new Stage(document.querySelector('#stage'), width: 900, height: 500, webGL: false);
+  stage = new Stage(document.querySelector('#stage'), width: 900, height: 500, webGL: true);
   stage.scaleMode = StageScaleMode.SHOW_ALL;
   stage.align = StageAlign.NONE;
   renderLoop.addStage(stage);
@@ -41,17 +41,18 @@ void main() {
    });
    setButtonStateOn(e.target);
   });
+  
   document.querySelector('#arrow_200').onClick.listen((e) {
    var rng = new Random();
-      int lastX = 0;
-      int lastY = 0;
-      endDraw();
-      for(var i=0;i<200;i++){
-       Arrow arrow = new Arrow();
-       arrow.addTo(stage);
-       arrow.pointTo(lastX, lastY , lastX = rng.nextInt(900) , lastY = rng.nextInt(500));
-       arrow.endDraw();
-      }
+   int lastX = 0;
+   int lastY = 0;
+   endDraw();
+   for(var i=0;i<200;i++){
+    Arrow arrow = new Arrow();
+    arrow.addTo(stage);
+    arrow.pointTo(lastX, lastY , lastX = rng.nextInt(900) , lastY = rng.nextInt(500));
+    arrow.endDraw();
+   }
   });
   document.querySelector('#pen').onClick.listen((e) {
    endDraw();
