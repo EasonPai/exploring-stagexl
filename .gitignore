@@ -6,3 +6,5 @@ web
 packages
 firebase
 firebase.json
+pubspec.yaml
+params.json
