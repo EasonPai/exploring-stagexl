@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Graphics API Drawing Test</title>
+<link href="./common/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body {
+  background-color: LightGray;
+}
+
+#stage {
+  background-color: White;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #999999;
+}
+
+#container {
+  position: absolute;
+  top: 50%;
+  margin-top: -275px;
+  left: 0;
+  width: 100%;
+}
+
+#content {
+  width: 900px;
+  height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="content">
+    <H2>Graphics API Drawing Test  <span class="badge">v4, draw in vectors (instead of WebGL)</span></H2>
+       <div id="fpsMeter" class="pull-right"></div>
+        <button id="clean" type="button" class="pull-left btn btn-warning btn-sm">Clean Canvas</button>
+        <button id="points" type="button" class="pull-left btn btn-info btn-sm ">Points:</button>
+        <button id="totalPoints" type="button" class="pull-left btn btn-info btn-sm ">Total Points:</button>
+      <canvas id="stage" width="900" height="500"></canvas>
+    </div>
+  </div>
+
+  <script type="application/dart" src="TestingDrawing_v4.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>

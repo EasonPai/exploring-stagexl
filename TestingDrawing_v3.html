@@ -2,8 +2,8 @@
 
 <html>
 <head>
-<title>Testing Drawing</title>
-<link href="../common/css/bootstrap.min.css" rel="stylesheet">
+<title>Testing Drawing v3</title>
+<link href="./common/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 body {
   background-color: LightGray;
@@ -34,20 +34,18 @@ body {
 </head>
 
 <body>
+
   <div id="container">
     <div id="content">
-      <span class="pull-left">Mode:  </span>
-      <div class="btn-group">
-        <button id="mode1" type="button" class="btn btn-info btn-sm">dynamic cache</button>
-        <button id="mode2" type="button" class="btn btn-info btn-sm">static cache</button>
-        <button id="clean" type="button" class="btn btn-warning btn-sm">clean canvas</button>
-      </div>
+    <H2>Graphics API Drawing Test  <span class="badge">v3, cache with BitmapData</span></H2>
        <div id="fpsMeter" class="pull-right"></div>
+        <button id="clean" type="button" class="pull-left btn btn-warning btn-sm">Clean Canvas</button>
+        <button id="points" type="button" class="pull-left btn btn-info btn-sm ">Points:</button>
       <canvas id="stage" width="900" height="500"></canvas>
     </div>
   </div>
 
-  <script type="application/dart" src="TestingDrawing.dart.js"></script>
+  <script type="application/dart" src="TestingDrawing_v3.dart"></script>
   <script src="packages/browser/dart.js"></script>
 </body>
 </html>

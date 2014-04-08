@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Graphics API Drawing Test</title>
+<link href="./common/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body {
+  background-color: LightGray;
+}
+
+#stage {
+  background-color: White;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #999999;
+}
+
+#container {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+}
+
+#content {
+  width: 900px;
+  height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="content">
+    <H2>Graphics API Drawing Test  <span class="badge">v5, massive bitmapdatas</span></H2>
+    <h5  class="text-warning"><span class="badge">Description</span> Once when an arrow is drawn, 
+    vectors will be removed and cached with bitmapdata. 
+    Every arrow has its own bitmapdata so we will have massive amount of bitmapdatas. 
+    Without webGL supports, the performance is bad. Click the <span class="badge">Draw 200 arrows"</span> button to see result.</h5>
+    <h5 class="text-primary"><span class="badge">Conclusion</span> We will need to enable WebGL to see if its better.</h5>
+       <div id="fpsMeter" class="pull-right"></div>
+        <button id="arrow" type="button" class="pull-left btn btn-primary btn-sm">Arrow</button>
+        <button id="arrow_200" type="button" class="pull-left btn btn-primary btn-sm">Draw 200 Arrows</button>
+        <button id="pen" type="button" class="pull-left btn btn-primary btn-sm">Pen</button>
+        <button id="clean" type="button" class="pull-left btn btn-warning btn-sm">Clean Canvas</button>
+        <button id="points" type="button" class="pull-left btn btn-info btn-sm ">Points:</button>
+        <button id="totalPoints" type="button" class="pull-left btn btn-info btn-sm ">Total Points:</button>
+      <canvas id="stage" width="900" height="500"></canvas>
+    </div>
+  </div>
+
+  <script type="application/dart" src="TestingDrawing_v5.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+</body>
+</html>
