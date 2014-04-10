@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:stagexl/stagexl.dart';
 import 'package:stats/stats.dart';
-import 'dart:math';
+import 'dart:math' hide Point;
 import 'dart:async';
 
 Stage stage;
@@ -160,6 +160,7 @@ class Arrow extends DisplayObjectContainer{
   Arrow(){
     mouseEnabled = false;            
     lineVector = new Shape();
+    lineVector.applyCache(0, 0, 900, 500, debugBorder: false);
     addChild(lineVector);
     
     Shape headVector = new Shape();
@@ -172,7 +173,7 @@ class Arrow extends DisplayObjectContainer{
     headVector.graphics.closePath();
     headVector.graphics.fillColor(Color.Black);
     
-    // Being tested that cache with BitmapData improves performance
+    // Being tested that cache vectors with BitmapData improves performance
     BitmapData canvasBitmapData = new BitmapData(25, 20, true, 0);
     canvasBitmapData.draw(headVector);
     headVector.graphics.clear();
@@ -197,6 +198,7 @@ class Arrow extends DisplayObjectContainer{
     lineVector.graphics.lineTo( x2 - (head.width/bodyLength)*(x2 - x) ,y2 - (head.width/bodyLength)*(y2 - y));
     lineVector.graphics.closePath();
     lineVector.graphics.strokeColor(Color.Black, 5 , JointStyle.BEVEL , CapsStyle.SQUARE);
+    lineVector.refreshCache();
     head.rotation = atan2(y2 - y  , x2 - x);
     head.x = x2;
     head.y = y2;
@@ -204,7 +206,7 @@ class Arrow extends DisplayObjectContainer{
   
   void endDraw(){
    
-   print('${lineVector.width} , ${lineVector.height}');
+//   print('${lineVector.width} , ${lineVector.height}');
    BitmapData bitmapData = new BitmapData(900,500, true, 0);
    bitmapData.draw(lineVector);
    Bitmap body = new Bitmap(bitmapData);
