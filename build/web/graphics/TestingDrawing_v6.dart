@@ -160,6 +160,7 @@ class Arrow extends DisplayObjectContainer{
   Arrow(){
     mouseEnabled = false;            
     lineVector = new Shape();
+    lineVector.applyCache(0, 0, 900, 500, debugBorder: false);
     addChild(lineVector);
     
     Shape headVector = new Shape();
@@ -197,6 +198,7 @@ class Arrow extends DisplayObjectContainer{
     lineVector.graphics.lineTo( x2 - (head.width/bodyLength)*(x2 - x) ,y2 - (head.width/bodyLength)*(y2 - y));
     lineVector.graphics.closePath();
     lineVector.graphics.strokeColor(Color.Black, 5 , JointStyle.BEVEL , CapsStyle.SQUARE);
+    lineVector.refreshCache();
     head.rotation = atan2(y2 - y  , x2 - x);
     head.x = x2;
     head.y = y2;
