@@ -1,16 +1,4 @@
 #################
 ## Dart
 #################
-packages/
-.project
-*.iml
-*.ipr
-*.iws
-.idea/
-*.dart.js
-*.js_
-*.js.deps
-*.js.map
-.buildlog
-web/out/*
-.DS_Store
+*.dart
