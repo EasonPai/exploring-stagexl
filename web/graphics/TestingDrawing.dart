@@ -12,7 +12,7 @@ void main() {
 
   // setup canvas & stage
   var canvas = document.querySelector('#stage');
-  stage = new Stage(canvas, width: 900, height: 500, webGL: true);
+  stage = new Stage(canvas, width: 900, height: 500);
   stage.scaleMode = StageScaleMode.SHOW_ALL;
   stage.align = StageAlign.NONE;
   renderLoop.addStage(stage);

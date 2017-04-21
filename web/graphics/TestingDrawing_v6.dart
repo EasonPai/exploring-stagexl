@@ -1,16 +1,16 @@
 import 'dart:html';
-import 'package:stagexl/stagexl.dart';
+import 'dart:math';
+import 'package:stagexl/stagexl.dart' as sxl;
 import 'package:stats/stats.dart';
-import 'dart:math' hide Point;
 import 'dart:async';
 
-Stage stage;
-RenderLoop renderLoop = new RenderLoop();
+sxl.Stage stage;
+sxl.RenderLoop renderLoop = new sxl.RenderLoop();
 
 var background;
-BitmapData canvasBitmapData;
+sxl.BitmapData canvasBitmapData;
 List<Point> pixels = [];
-Shape _canvas;
+sxl.Shape _canvas;
 var createLineStart = false;
 StreamSubscription touchListener,touchEndListener;
 int totalPoints = 0;
@@ -18,18 +18,18 @@ int CACHE_THRESHOLD = 1000;
 void main() {
 
   // setup canvas & stage
-  stage = new Stage(document.querySelector('#stage'), width: 900, height: 500, webGL: true);
-  stage.scaleMode = StageScaleMode.SHOW_ALL;
-  stage.align = StageAlign.NONE;
+  stage = new sxl.Stage(document.querySelector('#stage'), width: 900, height: 500);
+  stage.scaleMode = sxl.StageScaleMode.SHOW_ALL;
+  stage.align = sxl.StageAlign.NONE;
   renderLoop.addStage(stage);
 
   // add bg
-  background = new Sprite();
+  background = new sxl.Sprite();
   background.graphics.beginPath();
   background.graphics.rect(0, 0, 900, 500);
   background.graphics.closePath();
-  background.graphics.fillColor(Color.LightGreen);
-  background.graphics.strokeColor(Color.LightGray, 5);
+  background.graphics.fillColor(sxl.Color.LightGreen);
+  background.graphics.strokeColor(sxl.Color.LightGray, 5);
   background.applyCache(0, 0, 900, 500);
   background.addTo(stage);
 
@@ -70,16 +70,16 @@ void main() {
   // measure the fps
   Stats stats = new Stats();
   document.querySelector('#fpsMeter').append(stats.container);
-  stage.onEnterFrame.listen((EnterFrameEvent e) {
+  stage.onEnterFrame.listen((sxl.EnterFrameEvent e) {
    stats.end();
    stats.begin();    
   });
   
   // init canvas
-  _canvas = new Shape();
+  _canvas = new sxl.Shape();
   _canvas.addTo(stage);
-  canvasBitmapData = new BitmapData(900, 500, true, 0); 
-  Bitmap drawingCache = new Bitmap(canvasBitmapData);
+  canvasBitmapData = new sxl.BitmapData(900, 500);
+  sxl.Bitmap drawingCache = new sxl.Bitmap(canvasBitmapData);
   drawingCache.addTo(stage);
   
   // start listener
@@ -130,7 +130,7 @@ drawPen(int toX, int toY) {
   for(int i=1;i<pixels.length;i++){
    _canvas.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
-  _canvas.graphics.strokeColor(Color.DimGray , 5);
+  _canvas.graphics.strokeColor(sxl.Color.DimGray , 5);
 }
 
 endDraw() {
@@ -154,16 +154,16 @@ setButtonStateOn(Element target) {
   target.classes.add("active");
 }
 
-class Arrow extends DisplayObjectContainer{
-  Shape lineVector;
-  Bitmap head;
+class Arrow extends sxl.DisplayObjectContainer{
+  sxl.Shape lineVector;
+  sxl.Bitmap head;
   Arrow(){
     mouseEnabled = false;            
-    lineVector = new Shape();
+    lineVector = new sxl.Shape();
     lineVector.applyCache(0, 0, 900, 500, debugBorder: false);
     addChild(lineVector);
-    
-    Shape headVector = new Shape();
+
+    sxl.Shape headVector = new sxl.Shape();
     headVector.graphics.beginPath();
     headVector.graphics.moveTo(25 , 10);
     headVector.graphics.lineTo(0, 20);
@@ -171,14 +171,14 @@ class Arrow extends DisplayObjectContainer{
 //    headVector.graphics.lineTo(0,0);
     headVector.graphics.lineTo(25, 10);
     headVector.graphics.closePath();
-    headVector.graphics.fillColor(Color.Black);
+    headVector.graphics.fillColor(sxl.Color.Black);
     
     // Being tested that cache vectors with BitmapData improves performance
-    BitmapData canvasBitmapData = new BitmapData(25, 20, true, 0);
+    sxl.BitmapData canvasBitmapData = new sxl.BitmapData(25, 20);
     canvasBitmapData.draw(headVector);
     headVector.graphics.clear();
     
-    head = new Bitmap(canvasBitmapData);
+    head = new sxl.Bitmap(canvasBitmapData);
     head ..pivotX = 25 ..pivotY = 10;
     addChild(head);
 
@@ -197,7 +197,7 @@ class Arrow extends DisplayObjectContainer{
     lineVector.graphics.moveTo(x, y);
     lineVector.graphics.lineTo( x2 - (head.width/bodyLength)*(x2 - x) ,y2 - (head.width/bodyLength)*(y2 - y));
     lineVector.graphics.closePath();
-    lineVector.graphics.strokeColor(Color.Black, 5 , JointStyle.BEVEL , CapsStyle.SQUARE);
+    lineVector.graphics.strokeColor(sxl.Color.Black, 5 , sxl.JointStyle.BEVEL , sxl.CapsStyle.SQUARE);
     lineVector.refreshCache();
     head.rotation = atan2(y2 - y  , x2 - x);
     head.x = x2;
@@ -207,9 +207,9 @@ class Arrow extends DisplayObjectContainer{
   void endDraw(){
    
 //   print('${lineVector.width} , ${lineVector.height}');
-   BitmapData bitmapData = new BitmapData(900,500, true, 0);
+    sxl.BitmapData bitmapData = new sxl.BitmapData(900,500);
    bitmapData.draw(lineVector);
-   Bitmap body = new Bitmap(bitmapData);
+    sxl.Bitmap body = new sxl.Bitmap(bitmapData);
 //   body ..x = startpoint.x ..y = startpoint.y;
    addChild(body);
    lineVector.graphics.clear();

@@ -1,15 +1,17 @@
 import 'dart:html';
-import 'package:stagexl/stagexl.dart';
 import 'package:stats/stats.dart';
 
-Stage stage;
-RenderLoop renderLoop = new RenderLoop();
+import 'package:stagexl/stagexl.dart' as sxl;
+
+
+sxl.Stage stage;
+sxl.RenderLoop renderLoop = new sxl.RenderLoop();
 
 var background;
 var mouseDownListener;
-BitmapData canvasBitmapData;
-List<Point> pixels = [];
-Shape penCanvas;
+sxl.BitmapData canvasBitmapData;
+var pixels = [];
+sxl.Shape penCanvas;
 var createLineStart = false;
 var touchListener;
 int totalPoints = 0;
@@ -17,18 +19,18 @@ int CACHE_THRESHOLD = 1000;
 void main() {
 
   // setup canvas & stage
-  stage = new Stage(document.querySelector('#stage'), width: 900, height: 500, webGL: false);
-  stage.scaleMode = StageScaleMode.SHOW_ALL;
-  stage.align = StageAlign.NONE;
+  stage = new sxl.Stage(document.querySelector('#stage'), width: 900, height: 500);
+  stage.scaleMode = sxl.StageScaleMode.SHOW_ALL;
+  stage.align = sxl.StageAlign.NONE;
   renderLoop.addStage(stage);
 
   // add bg
-  background = new Sprite();
+  background = new sxl.Sprite();
   background.graphics.beginPath();
   background.graphics.rect(0, 0, 900, 500);
   background.graphics.closePath();
-  background.graphics.fillColor(Color.LightGreen);
-  background.graphics.strokeColor(Color.LightGray, 5);
+  background.graphics.fillColor(sxl.Color.LightGreen);
+  background.graphics.strokeColor(sxl.Color.LightGray, 5);
   background.applyCache(0, 0, 900, 500);
   background.addTo(stage);
 
@@ -42,16 +44,16 @@ void main() {
   // measure the fps
   Stats stats = new Stats();
   document.querySelector('#fpsMeter').append(stats.container);
-  stage.onEnterFrame.listen((EnterFrameEvent e) {
+  stage.onEnterFrame.listen((sxl.EnterFrameEvent e) {
    stats.end();
    stats.begin();    
   });
   
   // init canvas
-  penCanvas = new Shape();
+  penCanvas = new sxl.Shape();
   penCanvas.addTo(stage);
-  canvasBitmapData = new BitmapData(900, 500, true, 0); 
-  Bitmap drawingCache = new Bitmap(canvasBitmapData);
+  canvasBitmapData = new sxl.BitmapData(900, 500);
+  sxl.Bitmap drawingCache = new sxl.Bitmap(canvasBitmapData);
   drawingCache.addTo(stage);
   
   // start listener
@@ -90,7 +92,7 @@ drawStatic(int toX, int toY) {
   for(int i=1;i<pixels.length;i++){
    penCanvas.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
-  penCanvas.graphics.strokeColor(Color.DimGray , 5);
+  penCanvas.graphics.strokeColor(sxl.Color.DimGray , 5);
 }
 
 endDraw() {

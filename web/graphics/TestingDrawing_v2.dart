@@ -1,9 +1,9 @@
 import 'dart:html';
-import 'package:stagexl/stagexl.dart';
 import 'package:stats/stats.dart';
+import 'package:stagexl/stagexl.dart' as sxl;
 
-Stage stage;
-RenderLoop renderLoop = new RenderLoop();
+sxl.Stage stage;
+sxl.RenderLoop renderLoop = new sxl.RenderLoop();
 
 var background;
 var mouseDownListener;
@@ -11,18 +11,18 @@ void main() {
 
   // setup canvas & stage
   var canvas = document.querySelector('#stage');
-  stage = new Stage(canvas, width: 900, height: 500, webGL: true);
-  stage.scaleMode = StageScaleMode.SHOW_ALL;
-  stage.align = StageAlign.NONE;
+  stage = new sxl.Stage(canvas, width: 900, height: 500);
+  stage.scaleMode = sxl.StageScaleMode.SHOW_ALL;
+  stage.align = sxl.StageAlign.NONE;
   renderLoop.addStage(stage);
 
   // add bg
-  background = new Sprite();
+  background = new sxl.Sprite();
   background.graphics.beginPath();
   background.graphics.rect(0, 0, 900, 500);
   background.graphics.closePath();
-  background.graphics.fillColor(Color.LightGreen);
-  background.graphics.strokeColor(Color.LightGray, 5);
+  background.graphics.fillColor(sxl.Color.LightGreen);
+  background.graphics.strokeColor(sxl.Color.LightGray, 5);
   background.applyCache(0, 0, 900, 500);
   background.addTo(stage);
 
@@ -34,7 +34,7 @@ void main() {
   // measure the fps
   Stats stats = new Stats();
   document.querySelector('#fpsMeter').append(stats.container);
-  stage.onEnterFrame.listen((EnterFrameEvent e) {
+  stage.onEnterFrame.listen((sxl.EnterFrameEvent e) {
    stats.end();
    stats.begin();    
   });
@@ -47,7 +47,7 @@ void main() {
 
 
 List<Point> pixels = [];
-Shape drawBody;
+sxl.Shape drawBody;
 var createLineStart = false;
 var touchListener;
 
@@ -55,7 +55,7 @@ var touchListener;
 startStatic(int startx, int starty) {
   pixels = [];
   
-  drawBody = new Shape();
+  drawBody = new sxl.Shape();
   drawBody.addTo(stage);
   drawBody.applyCache(0, 0, 900, 500, debugBorder: true);
   pixels.add(new Point(startx, starty));
@@ -82,7 +82,7 @@ drawStatic(int toX, int toY) {
    }
    drawBody.graphics.lineTo(pixels[i].x , pixels[i].y);
   }
-  drawBody.graphics.strokeColor(Color.DimGray , 5);
+  drawBody.graphics.strokeColor(sxl.Color.DimGray , 5);
   drawBody.refreshCache();
 }
 
